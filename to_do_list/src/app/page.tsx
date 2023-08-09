@@ -1,8 +1,19 @@
+'use client'
+
 import InputToDo from '@/components/inputToDo'
-import React from 'react'
+import ViewCards from '@/components/viewCards'
+import React, { useState } from 'react'
 import { FiLogOut } from 'react-icons/fi'
 
 export default function Home (): React.JSX.Element {
+  const [view, setView] = useState<number>(0)
+
+  const viewType = [
+    { title: 'New' },
+    { title: 'In Progress' },
+    { title: 'Concluded' }
+  ]
+
   return (
     <main className="flex flex-col items-center pt-14 w-screen h-screen bg-Dark_1">
 
@@ -14,6 +25,28 @@ export default function Home (): React.JSX.Element {
       </div>
 
       <InputToDo />
+
+      <section className='flex justify-around w-80 pt-5 lg:hidden'>
+        <button className={`border-2 border-Dark_3 rounded-md w-20  ${view === 0 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
+        onClick={() => { setView(0) }}
+        >New</button>
+        <button className={`border-2 border-Dark_3 rounded-md w-28  ${view === 1 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
+        onClick={() => { setView(1) }}
+        >In Progress</button>
+        <button className={`border-2 border-Dark_3 rounded-md w-28  ${view === 2 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
+        onClick={() => { setView(2) }}
+        >Concluded</button>
+      </section>
+
+      <div className='flex w-full h-full justify-around pt-5 lg:hidden'>
+        <ViewCards title={viewType[view].title} />
+      </div>
+
+      <div className='hidden lg:flex w-full h-full justify-around pt-5'>
+        {viewType.map((item, index) => (
+          <ViewCards key={index} title={item.title} />
+        )) }
+      </div>
 
     </main>
   )

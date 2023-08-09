@@ -9,8 +9,6 @@ export default function InputToDo (): React.JSX.Element {
 
   const name = z.string().min(3).max(30)
 
-  console.log(name.safeParse(nameState))
-
   return (
     <div className='flex pt-5 gap-2'>
       <div>
