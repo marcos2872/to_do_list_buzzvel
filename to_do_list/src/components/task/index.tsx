@@ -7,7 +7,7 @@ import { VscChromeClose, VscAdd, VscTrash } from 'react-icons/vsc'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function Task ({ id }: { id: string }): React.JSX.Element {
-  const { tasks, setViewTask, updateTaskHook, updateListTask } = useStorageState()
+  const { tasks, setViewTask, updateTaskHook, updateListTask, deleteListTask } = useStorageState()
   const [info, setInfo] = useState<IToDO>()
   const [addTask, setAddTask] = useState(false)
   const [taskName, settTaskName] = useState('')
@@ -111,9 +111,9 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
               >
                 <div className='flex gap-2 items-center '>
                   <input type='checkbox' checked={item.concluded} onChange={() => { updateListTask(id, item.id) }} />
-                  <p className='text-yellow-50 max-w-[80%] whitespace-wrap'>{item.title}</p>
+                  <p className='text-yellow-50 '>{item.title}</p>
                 </div>
-                <VscTrash className='text-red-500 ml-0' onClick={() => {}}/>
+                <VscTrash className='text-red-500 ml-0' onClick={() => { deleteListTask(id, item.id) }}/>
               </div>
             ))
             : <p className='text-yellow-50'>Without any tasks click on more to add</p>}

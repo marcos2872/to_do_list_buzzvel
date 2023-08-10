@@ -87,7 +87,30 @@ function useStorageState (): IUseStorageStateReturn {
     }))
   }
 
-  return { newTask, tasks, viewTask, setViewTask, updateTaskHook, updateListTask }
+  const deleteListTask = (id: string, listId: string): void => {
+    const task = tasks.find((value) => value.id === id) as IToDO
+    const deleteTask = task.items.filter((item) => item.id !== listId)
+
+    updateTask(tasks.map((item: IToDO) => {
+      if (item.id === id) {
+        return {
+          ...task,
+          items: deleteTask
+        }
+      }
+      return item
+    }))
+  }
+
+  return {
+    tasks,
+    viewTask,
+    newTask,
+    setViewTask,
+    updateTaskHook,
+    updateListTask,
+    deleteListTask
+  }
 }
 
 export default useStorageState
