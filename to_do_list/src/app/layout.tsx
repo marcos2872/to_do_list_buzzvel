@@ -1,3 +1,4 @@
+import { ContextProvider } from '@/context/context'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -16,8 +17,12 @@ export default function RootLayout ({
   children: React.ReactNode
 }): React.JSX.Element {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="pt-br">
+      <body className={inter.className}>
+        <ContextProvider>
+          {children}
+        </ContextProvider>
+        </body>
     </html>
   )
 }

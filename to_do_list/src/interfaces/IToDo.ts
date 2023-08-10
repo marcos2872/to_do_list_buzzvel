@@ -1,7 +1,8 @@
 export interface IToDO {
+  id: string
   name: string
-  description: string
-  items: [
+  description?: string
+  items?: [
     {
       title: string
       details: string

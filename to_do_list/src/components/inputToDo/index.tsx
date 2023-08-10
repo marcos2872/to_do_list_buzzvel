@@ -3,9 +3,12 @@
 import React, { useState } from 'react'
 import { z } from 'zod'
 import ErrorInput from '../errorInput'
+import useStorageState from '@/hooks/useStorageState'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function InputToDo (): React.JSX.Element {
   const [nameState, setNameState] = useState('')
+  const { newTask } = useStorageState()
 
   const name = z.string().min(3).max(30)
 
@@ -23,7 +26,11 @@ export default function InputToDo (): React.JSX.Element {
       <button className='bg-Dark_5 rounded-lg h-9 w-12'
       disabled={ !name.safeParse(nameState).success }
       onClick={() => {
-        console.log('save')
+        newTask({
+          id: uuidv4(),
+          name: nameState
+        })
+        setNameState('')
       }}
       >Save</button>
     </div>
