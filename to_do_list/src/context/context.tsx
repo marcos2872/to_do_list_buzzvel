@@ -8,13 +8,15 @@ export interface ContextProps {
   setTask: (data: IToDO) => void
   viewTask: string
   setViewTask: (id: string) => void
+  updateTask: (data: IToDO[]) => void
 }
 
 export const Context = createContext<ContextProps>({
   tasks: [] as IToDO[],
   setTask: (): void => {},
   viewTask: '',
-  setViewTask: (): void => {}
+  setViewTask: (): void => {},
+  updateTask: (): void => {}
 })
 
 export function ContextProvider ({ children }: any): React.JSX.Element {
@@ -25,8 +27,12 @@ export function ContextProvider ({ children }: any): React.JSX.Element {
     setTasks((prev) => [data, ...prev])
   }
 
+  const updateTask = (data: IToDO[]): void => {
+    setTasks(data)
+  }
+
   return (
-    <Context.Provider value={{ tasks, setTask, viewTask, setViewTask }}>
+    <Context.Provider value={{ tasks, setTask, viewTask, setViewTask, updateTask }}>
       {children}
     </Context.Provider>
   )

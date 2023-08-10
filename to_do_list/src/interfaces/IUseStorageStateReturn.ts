@@ -5,4 +5,5 @@ export interface IUseStorageStateReturn {
   newTask: (data: IToDO) => void
   viewTask: string
   setViewTask: (id: string) => void
+  updateTaskHook: (id: string, data: IToDO) => void
 }
