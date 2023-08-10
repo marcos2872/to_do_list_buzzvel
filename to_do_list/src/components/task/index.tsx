@@ -52,11 +52,12 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
           }} />
       </section>
 
-      <label className='flex flex-col w-full border-2 border-Dark_3'>
+      <label className='flex flex-col w-full border-2 border-Dark_3 rounded-lg'>
         <span className='text-Dark_5 -mt-6'>Description:</span>
         <textarea
-          className='bg-transparent text-yellow-50 w-full h-40 whitespace-wrap resize-y p-1'
+          className='bg-transparent text-yellow-50 w-full h-40 whitespace-wrap resize-y p-1 outline-none'
           value={info?.description}
+          placeholder='enter the description'
           onChange={({ target }) => {
             updateTaskHook(id,
               {
@@ -116,7 +117,7 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
                 <VscTrash className='text-red-500 ml-0' onClick={() => { deleteListTask(id, item.id) }}/>
               </div>
             ))
-            : <p className='text-yellow-50'>Without any tasks click on more to add</p>}
+            : <p className='text-white opacity-50'>Without any tasks click on more to add</p>}
         </section>
 
       </div>

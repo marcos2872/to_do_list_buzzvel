@@ -2,6 +2,7 @@
 import { type IToDO } from '@/interfaces/IToDo'
 import React from 'react'
 import useStorageState from '@/hooks/useStorageState'
+import { VscTrash } from 'react-icons/vsc'
 
 interface PropsType {
   title: string
@@ -9,7 +10,7 @@ interface PropsType {
 }
 
 export default function ViewCards ({ title, cards }: PropsType): React.JSX.Element {
-  const { setViewTask } = useStorageState()
+  const { setViewTask, deleteTask } = useStorageState()
   return (
     <div className='flex flex-col w-[90%] lg:w-[30%] h-auto border-2 border-Dark_3 bg-Dark_2 rounded-xl items-center pb-5'>
       <h3 className='text-lg text-Dark_5'>{title}</h3>
@@ -18,21 +19,24 @@ export default function ViewCards ({ title, cards }: PropsType): React.JSX.Eleme
         {cards.map(item => (
           <div
             key={item.id}
-            className='bg-Dark_3 w-[95%] max-w-[350px] h-20 rounded-xl flex flex-col py-2 px-4 gap-3'
-            onClick={() => {
-              setViewTask(item.id)
-            }}
+            className='bg-Dark_3 w-[95%] max-w-[350px] h-20 rounded-xl flex items-end py-2 px-4 gap-3'
           >
-            <h4 className='text-Dark_5 font-semibold text-lg w-full overflow-hidden whitespace-nowrap'>{item.name}</h4>
-            <p className='text-Dark_1 text-sm font-medium mt-2'>
-              Done:
-              <span className='text-red-500'>
-                {`
+            <section className='flex flex-col w-full h-full'
+              onClick={() => {
+                setViewTask(item.id)
+              }}>
+              <h4 className='text-Dark_5 font-semibold text-lg w-full overflow-hidden whitespace-nowrap'>{item.name}</h4>
+              <p className='text-Dark_1 text-sm font-medium mt-2'>
+                Done:
+                <span className='text-green-600'>
+                  {`
                   ${item.items.filter((item) => item.concluded).length}/${item.items.length}
                 `}
-              </span>
+                </span>
 
-            </p>
+              </p>
+            </section>
+            <VscTrash className='text-red-600 text-2xl' onClick={() => { deleteTask(item.id) }} />
           </div>
         ))}
       </div>

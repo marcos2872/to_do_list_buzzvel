@@ -102,6 +102,12 @@ function useStorageState (): IUseStorageStateReturn {
     }))
   }
 
+  const deleteTask = (id: string): void => {
+    const deleteTask = tasks.filter((item) => item.id !== id)
+
+    updateTask(deleteTask)
+  }
+
   return {
     tasks,
     viewTask,
@@ -109,7 +115,8 @@ function useStorageState (): IUseStorageStateReturn {
     setViewTask,
     updateTaskHook,
     updateListTask,
-    deleteListTask
+    deleteListTask,
+    deleteTask
   }
 }
 
