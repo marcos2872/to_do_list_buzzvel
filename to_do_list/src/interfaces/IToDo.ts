@@ -1,12 +1,13 @@
+interface itemsT {
+  id: string
+  title: string
+  concluded: boolean
+}
+
 export interface IToDO {
   id: string
   name: string
   description: string
-  items: [
-    {
-      title: string
-      concluded: boolean
-    }
-  ] | []
+  items: itemsT[] | []
   status: string
 }

@@ -3,10 +3,11 @@
 import useStorageState from '@/hooks/useStorageState'
 import { type IToDO } from '@/interfaces/IToDo'
 import React, { useEffect, useState } from 'react'
-import { VscChromeClose, VscAdd } from 'react-icons/vsc'
+import { VscChromeClose, VscAdd, VscTrash } from 'react-icons/vsc'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function Task ({ id }: { id: string }): React.JSX.Element {
-  const { tasks, setViewTask, updateTaskHook } = useStorageState()
+  const { tasks, setViewTask, updateTaskHook, updateListTask } = useStorageState()
   const [info, setInfo] = useState<IToDO>()
   const [addTask, setAddTask] = useState(false)
   const [taskName, settTaskName] = useState('')
@@ -19,13 +20,6 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
   }, [tasks])
 
   const heardleInput = (): void => {
-    // const items = [
-    //   ...(((info?.items) != null) ? info?.items : {}),
-    //   {
-    //     title: taskName,
-    //     concluded: false
-    //   }
-    // ]
     updateTaskHook(id,
       {
         id: info?.id ?? '',
@@ -33,13 +27,16 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
         status: 'New',
         description: info?.description ?? '',
         items: [
-          // ...(info?.items ?? []),
+          ...(info?.items ?? []),
           {
+            id: uuidv4(),
             title: taskName,
             concluded: false
           }
         ]
       })
+    setAddTask(false)
+    settTaskName('')
   }
 
   return (
@@ -89,6 +86,7 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
               className='outline-none bg-Dark_4 text-Dark_1 px-2 rounded-lg w-64 h-9 lg:w-96 placeholder:text-Dark_3'
               placeholder='enter task name'
               value={taskName}
+              maxLength={26}
               onChange={({ target }) => { settTaskName(target.value) }}
               onKeyDown={({ key }) => {
                 if (key === 'Enter') {
@@ -104,11 +102,18 @@ export default function Task ({ id }: { id: string }): React.JSX.Element {
           </section>
         )}
 
-        <section className='flex flex-col w-full h-40 p-1'>
+        <section className='flex flex-col w-full h-40 p-1 gap-2'>
           {((info?.items) != null && info?.items.length !== 0)
-            ? info.items.map((item, index) => (
-              <div key={index}>
-                {item.title}
+            ? info.items.map((item) => (
+              <div
+                key={item.id}
+                className='flex items-center justify-between gap-2 w-full'
+              >
+                <div className='flex gap-2 items-center '>
+                  <input type='checkbox' checked={item.concluded} onChange={() => { updateListTask(id, item.id) }} />
+                  <p className='text-yellow-50 max-w-[80%] whitespace-wrap'>{item.title}</p>
+                </div>
+                <VscTrash className='text-red-500 ml-0' onClick={() => {}}/>
               </div>
             ))
             : <p className='text-yellow-50'>Without any tasks click on more to add</p>}

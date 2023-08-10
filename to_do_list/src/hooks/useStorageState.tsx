@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 'use client'
 
 // import { useEffect } from 'react'
@@ -38,7 +39,55 @@ function useStorageState (): IUseStorageStateReturn {
     updateTask(update)
   }
 
-  return { newTask, tasks, viewTask, setViewTask, updateTaskHook }
+  const updateListTask = (id: string, listId: string): void => {
+    const task = tasks.find((value) => value.id === id) as IToDO
+
+    const updateList = task?.items.map((item) => {
+      if (item.id === listId) {
+        return {
+          ...item,
+          concluded: !item.concluded
+        }
+      }
+      return item
+    })
+
+    const updateStatus = (): any => {
+      const allCompleted = updateList.every(({ concluded }) => concluded)
+      const partCompleted = updateList.some(({ concluded }) => concluded)
+
+      if (allCompleted) {
+        return {
+          ...task,
+          items: updateList,
+          status: 'Concluded'
+        }
+      }
+
+      if (partCompleted) {
+        return {
+          ...task,
+          items: updateList,
+          status: 'In Progress'
+        }
+      }
+
+      return {
+        ...task,
+        items: updateList,
+        status: 'New'
+      }
+    }
+
+    updateTask(tasks.map((item: IToDO) => {
+      if (item.id === id) {
+        return updateStatus()
+      }
+      return item
+    }))
+  }
+
+  return { newTask, tasks, viewTask, setViewTask, updateTaskHook, updateListTask }
 }
 
 export default useStorageState

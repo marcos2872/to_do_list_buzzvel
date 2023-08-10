@@ -25,11 +25,13 @@ export default function ViewCards ({ title, cards }: PropsType): React.JSX.Eleme
           >
             <h4 className='text-Dark_5 font-semibold text-lg w-full overflow-hidden whitespace-nowrap'>{item.name}</h4>
             <p className='text-Dark_1 text-sm font-medium mt-2'>
-              Done: {
-                item.items?.length
-                  ? <span className='text-red-500'>0/0</span>
-                  : <span className='text-red-500'>0/0</span>
-              }
+              Done:
+              <span className='text-red-500'>
+                {`
+                  ${item.items.filter((item) => item.concluded).length}/${item.items.length}
+                `}
+              </span>
+
             </p>
           </div>
         ))}
