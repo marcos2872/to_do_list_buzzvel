@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { type IToDO } from '@/interfaces/IToDo'
-import React, { useState } from 'react'
+import React from 'react'
 import useStorageState from '@/hooks/useStorageState'
 
 interface PropsType {
@@ -8,8 +8,8 @@ interface PropsType {
   cards: IToDO[]
 }
 
-export default function ViewCards({ title, cards }: PropsType): React.JSX.Element {
- const {setViewTask} = useStorageState()
+export default function ViewCards ({ title, cards }: PropsType): React.JSX.Element {
+  const { setViewTask } = useStorageState()
   return (
     <div className='flex flex-col w-[90%] lg:w-[30%] h-auto border-2 border-Dark_3 bg-Dark_2 rounded-xl items-center pb-5'>
       <h3 className='text-lg text-Dark_5'>{title}</h3>
@@ -23,7 +23,7 @@ export default function ViewCards({ title, cards }: PropsType): React.JSX.Elemen
               setViewTask(item.id)
             }}
           >
-            <h4 className='text-Dark_5 font-semibold text-lg'>{item.name}</h4>
+            <h4 className='text-Dark_5 font-semibold text-lg w-full overflow-hidden whitespace-nowrap'>{item.name}</h4>
             <p className='text-Dark_1 text-sm font-medium mt-2'>
               Done: {
                 item.items?.length

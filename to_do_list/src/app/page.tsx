@@ -7,7 +7,7 @@ import useStorageState from '@/hooks/useStorageState'
 import React, { useState } from 'react'
 import { FiLogOut } from 'react-icons/fi'
 
-export default function Home(): React.JSX.Element {
+export default function Home (): React.JSX.Element {
   const [view, setView] = useState<number>(0)
   const { tasks, viewTask } = useStorageState()
 
@@ -51,7 +51,7 @@ export default function Home(): React.JSX.Element {
         ))}
       </div>
 
-      {viewTask && <Task id={viewTask} />}
+      {viewTask !== '' && <Task id={viewTask} />}
 
     </main>
   )

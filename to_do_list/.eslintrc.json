@@ -21,13 +21,6 @@
             {
               "checksVoidReturn": false
             }
-          ],
-        "strict-boolean-expressions": [
-            false
-          ],
-        "@typescript-eslint/prefer-nullish-coalescing": [
-            false
-        ],
-        "ignorePrimitives": true
+          ]
     }
 }

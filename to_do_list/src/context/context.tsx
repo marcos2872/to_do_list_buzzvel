@@ -14,7 +14,7 @@ export const Context = createContext<ContextProps>({
   tasks: [] as IToDO[],
   setTask: (): void => {},
   viewTask: '',
-  setViewTask: (): void => {},
+  setViewTask: (): void => {}
 })
 
 export function ContextProvider ({ children }: any): React.JSX.Element {
