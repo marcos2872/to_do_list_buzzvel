@@ -8,9 +8,20 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default function InputToDo (): React.JSX.Element {
   const [nameState, setNameState] = useState('')
-  const { newTask } = useStorageState()
+  const { newTask, tasks } = useStorageState()
 
   const name = z.string().min(3).max(30)
+
+  const nameValidate = (): boolean => tasks.some(({ name }) => name === nameState)
+
+  const heardleInput = (): void => {
+    newTask({
+      id: uuidv4(),
+      name: nameState,
+      status: 'New'
+    })
+    setNameState('')
+  }
 
   return (
     <div className='flex pt-5 gap-2'>
@@ -20,18 +31,18 @@ export default function InputToDo (): React.JSX.Element {
       value={nameState}
       placeholder='enter task name'
       onChange={({ target }) => { setNameState(target.value) }}
+      onKeyDown={({ key }) => {
+        if (key === 'Enter') {
+          heardleInput()
+        }
+      }}
       />
       {!name.safeParse(nameState).success && nameState !== '' && <ErrorInput message='* The name must be between 3 and 30 characters long.'/>}
+      {nameValidate() && <ErrorInput message='* a task with the same name already exists.'/>}
       </div>
       <button className='bg-Dark_5 rounded-lg h-9 w-12'
-      disabled={ !name.safeParse(nameState).success }
-      onClick={() => {
-        newTask({
-          id: uuidv4(),
-          name: nameState
-        })
-        setNameState('')
-      }}
+      disabled={ !name.safeParse(nameState).success || nameValidate() }
+      onClick={heardleInput}
       >Save</button>
     </div>
   )

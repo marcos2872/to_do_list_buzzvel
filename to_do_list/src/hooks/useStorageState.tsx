@@ -6,7 +6,7 @@ import { type IToDO } from '@/interfaces/IToDo'
 import { type IUseStorageStateReturn } from '@/interfaces/IUseStorageStateReturn'
 
 function useStorageState (): IUseStorageStateReturn {
-  const { tasks, setTask } = useGlobalContext()
+  const { tasks, setTask, viewTask, setViewTask } = useGlobalContext()
 
   // useEffect(() => {
   //   const storageLocal = localStorage.getItem('tasks')
@@ -26,7 +26,7 @@ function useStorageState (): IUseStorageStateReturn {
     // }, 1000 * 5)
   }
 
-  return { newTask }
+  return { newTask, tasks, viewTask, setViewTask }
 }
 
 export default useStorageState

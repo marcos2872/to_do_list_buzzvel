@@ -10,4 +10,5 @@ export interface IToDO {
       concluded: boolean
     }
   ]
+  status: string
 }
