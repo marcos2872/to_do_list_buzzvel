@@ -3,7 +3,7 @@
 
 // import { useEffect } from 'react'
 import { useGlobalContext } from '@/context/context'
-import { type IToDO } from '@/interfaces/IToDo'
+import { type IToDO, type ItemsT } from '@/interfaces/IToDo'
 import { type IUseStorageStateReturn } from '@/interfaces/IUseStorageStateReturn'
 
 function useStorageState (): IUseStorageStateReturn {
@@ -27,12 +27,45 @@ function useStorageState (): IUseStorageStateReturn {
     // }, 1000 * 5)
   }
 
+  const updateStatus = (task: IToDO, data: ItemsT[]): any => {
+    const allCompleted = data.every(({ concluded }) => concluded)
+    const partCompleted = data.some(({ concluded }) => concluded)
+
+    if (data.length === 0) {
+      return {
+        ...task,
+        items: data,
+        status: 'New'
+      }
+    }
+
+    if (allCompleted) {
+      return {
+        ...task,
+        items: data,
+        status: 'Concluded'
+      }
+    }
+
+    if (partCompleted) {
+      return {
+        ...task,
+        items: data,
+        status: 'In Progress'
+      }
+    }
+
+    return {
+      ...task,
+      items: data,
+      status: 'New'
+    }
+  }
+
   const updateTaskHook = (id: string, data: IToDO): void => {
     const update = tasks.map((item) => {
       if (item.id === id) {
-        return {
-          ...data
-        }
+        return updateStatus(item, data.items)
       }
       return item
     })
@@ -52,36 +85,9 @@ function useStorageState (): IUseStorageStateReturn {
       return item
     })
 
-    const updateStatus = (): any => {
-      const allCompleted = updateList.every(({ concluded }) => concluded)
-      const partCompleted = updateList.some(({ concluded }) => concluded)
-
-      if (allCompleted) {
-        return {
-          ...task,
-          items: updateList,
-          status: 'Concluded'
-        }
-      }
-
-      if (partCompleted) {
-        return {
-          ...task,
-          items: updateList,
-          status: 'In Progress'
-        }
-      }
-
-      return {
-        ...task,
-        items: updateList,
-        status: 'New'
-      }
-    }
-
     updateTask(tasks.map((item: IToDO) => {
       if (item.id === id) {
-        return updateStatus()
+        return updateStatus(task, updateList)
       }
       return item
     }))
@@ -93,10 +99,7 @@ function useStorageState (): IUseStorageStateReturn {
 
     updateTask(tasks.map((item: IToDO) => {
       if (item.id === id) {
-        return {
-          ...task,
-          items: deleteTask
-        }
+        return updateStatus(task, deleteTask)
       }
       return item
     }))

@@ -1,4 +1,4 @@
-interface itemsT {
+export interface ItemsT {
   id: string
   title: string
   concluded: boolean
@@ -8,6 +8,6 @@ export interface IToDO {
   id: string
   name: string
   description: string
-  items: itemsT[] | []
+  items: ItemsT[] | []
   status: string
 }
