@@ -5,26 +5,17 @@ import Task from '@/components/task'
 import ViewCards from '@/components/viewCards'
 import useStorageState from '@/hooks/useStorageState'
 import React, { useState } from 'react'
-import { FiLogOut } from 'react-icons/fi'
+import viewType from '../utils/todo_category'
 
 export default function Home (): React.JSX.Element {
   const [view, setView] = useState<number>(0)
   const { tasks, viewTask } = useStorageState()
-
-  const viewType = [
-    { title: 'New' },
-    { title: 'In Progress' },
-    { title: 'Concluded' }
-  ]
 
   return (
     <main className="flex flex-col items-center pt-14 pb-5 w-full min-h-screen h-full bg-Dark_1">
 
       <div className="flex items-center justify-center w-[95%] absolute top-0 h-12 border-b-2 border-Dark_3">
         <h1 className="font-bold text-2xl text-Dark_5">To do List</h1>
-        <FiLogOut
-          className=" w-6 h-6 absolute right-5 text-red-600"
-        />
       </div>
 
       <InputToDo />
