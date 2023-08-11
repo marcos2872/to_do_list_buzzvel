@@ -1,6 +1,6 @@
 'use client'
 
-import { type IToDO } from '@/interfaces/IToDo'
+import { type IToDO } from '../interfaces/IToDo'
 import React, { createContext, useContext, useState } from 'react'
 
 export interface ContextProps {

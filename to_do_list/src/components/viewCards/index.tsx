@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { type IToDO } from '@/interfaces/IToDo'
+import { type IToDO } from '../../interfaces/IToDo'
 import React from 'react'
-import useStorageState from '@/hooks/useStorageState'
+import useStorageState from '../../hooks/useStorageState'
 import { VscTrash } from 'react-icons/vsc'
 
 interface PropsType {
@@ -12,7 +12,7 @@ interface PropsType {
 export default function ViewCards ({ title, cards }: PropsType): React.JSX.Element {
   const { setViewTask, deleteTask } = useStorageState()
   return (
-    <div className='flex flex-col w-[90%] lg:w-[30%] h-auto border-2 border-Dark_3 bg-Dark_2 rounded-xl items-center pb-5'>
+    <div data-testid={title} className='flex flex-col w-[90%] lg:w-[30%] h-auto border-2 border-Dark_3 bg-Dark_2 rounded-xl items-center pb-5'>
       <h3 className='text-lg text-Dark_5'>{title}</h3>
       <div className='flex flex-col w-full items-center pt-4
       md:flex-row md:flex-wrap md:justify-around gap-5'>

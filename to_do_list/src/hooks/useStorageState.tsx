@@ -2,9 +2,9 @@
 'use client'
 
 // import { useEffect } from 'react'
-import { useGlobalContext } from '@/context/context'
-import { type IToDO, type ItemsT } from '@/interfaces/IToDo'
-import { type IUseStorageStateReturn } from '@/interfaces/IUseStorageStateReturn'
+import { useGlobalContext } from '../context/context'
+import { type IToDO, type ItemsT } from '../interfaces/IToDo'
+import { type IUseStorageStateReturn } from '../interfaces/IUseStorageStateReturn'
 
 function useStorageState (): IUseStorageStateReturn {
   const { tasks, setTask, viewTask, setViewTask, updateTask } = useGlobalContext()

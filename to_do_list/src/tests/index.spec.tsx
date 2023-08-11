@@ -1,15 +1,65 @@
 import React from 'react'
 import Home from '../app/page'
-import { render } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import { fireEvent, render } from '@testing-library/react'
 
 describe('Home', () => {
-  it('testing start page components', () => {
-    const { getByText, getByRole } = render(<Home />)
+  test('testing Home page components', () => {
+    const { getByTestId, getAllByTestId } = render(<Home />)
 
-    expect(getByText('To do List')).toBeTruthy()
-    expect(getByText('New')).toBeTruthy()
-    expect(getByText('In Progress')).toBeTruthy()
-    expect(getByText('Concluded')).toBeTruthy()
-    // expect(getByRole('input')).toBeTruthy()
+    const buttonNewMobile = getByTestId('buttonNewMobile')
+    const buttonProgressMobile = getByTestId('buttonProgressMobile')
+    const buttonConcludedMobile = getByTestId('buttonConcludedMobile')
+
+    fireEvent.click(buttonNewMobile)
+
+    expect(getAllByTestId('New').length).toBe(2)
+
+    fireEvent.click(buttonProgressMobile)
+
+    expect(getAllByTestId('In Progress').length).toBe(2)
+
+    fireEvent.click(buttonConcludedMobile)
+
+    expect(getAllByTestId('Concluded').length).toBe(2)
+
+    // const inputNewToDo = getByTestId('input-new-to-do')
+    // const buttonNewToDo = getByTestId('button-new-to-do')
+    // const inputError = getByTestId('input-new-to-do')
+
+    // expect(inputNewToDo).toBeVisible()
+    // expect(buttonNewToDo).toBeVisible()
+
+    // fireEvent.change(inputNewToDo, { target: { value: 'te' } })
+
+    // expect(inputNewToDo).toHaveDisplayValue('te')
+    // expect(buttonNewToDo).toBeDisabled()
+    // expect(inputError).toBeVisible()
+
+    // fireEvent.change(inputNewToDo, { target: { value: 'teste1' } })
+
+    // expect(inputNewToDo).toHaveDisplayValue('teste1')
+    // expect(buttonNewToDo).toBeEnabled()
+  })
+  test('testing inputToDo components', () => {
+    const { getByTestId } = render(<Home />)
+
+    const inputNewToDo = getByTestId('input-new-to-do')
+    const buttonNewToDo = getByTestId('button-new-to-do')
+    const inputError = getByTestId('input-new-to-do')
+
+    expect(inputNewToDo).toBeVisible()
+    expect(buttonNewToDo).toBeVisible()
+
+    fireEvent.change(inputNewToDo, { target: { value: 'te' } })
+
+    expect(inputNewToDo).toHaveDisplayValue('te')
+    expect(buttonNewToDo).toBeDisabled()
+    expect(inputError).toBeVisible()
+
+    fireEvent.change(inputNewToDo, { target: { value: 'teste1' } })
+
+    expect(inputNewToDo).toHaveDisplayValue('teste1')
+    expect(buttonNewToDo).toBeEnabled()
   })
 })

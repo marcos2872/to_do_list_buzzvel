@@ -1,7 +1,7 @@
 'use client'
 
-import useStorageState from '@/hooks/useStorageState'
-import { type IToDO } from '@/interfaces/IToDo'
+import useStorageState from '../../hooks/useStorageState'
+import { type IToDO } from '../../interfaces/IToDo'
 import React, { useEffect, useState } from 'react'
 import { VscChromeClose, VscAdd, VscTrash } from 'react-icons/vsc'
 import { v4 as uuidv4 } from 'uuid'

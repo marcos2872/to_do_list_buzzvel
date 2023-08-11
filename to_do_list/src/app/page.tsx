@@ -1,9 +1,9 @@
 'use client'
 
-import InputToDo from '@/components/inputToDo'
-import Task from '@/components/task'
-import ViewCards from '@/components/viewCards'
-import useStorageState from '@/hooks/useStorageState'
+import InputToDo from '../components/inputToDo'
+import Task from '../components/task'
+import ViewCards from '../components/viewCards'
+import useStorageState from '../hooks/useStorageState'
 import React, { useState } from 'react'
 import viewType from '../utils/todo_category'
 
@@ -21,13 +21,13 @@ export default function Home (): React.JSX.Element {
       <InputToDo />
 
       <section className='flex justify-around w-80 pt-5 lg:hidden'>
-        <button className={`border-2 border-Dark_3 rounded-md w-20  ${view === 0 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
+        <button data-testid='buttonNewMobile' className={`border-2 border-Dark_3 rounded-md w-20  ${view === 0 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
           onClick={() => { setView(0) }}
         >New</button>
-        <button className={`border-2 border-Dark_3 rounded-md w-28  ${view === 1 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
+        <button data-testid='buttonProgressMobile' className={`border-2 border-Dark_3 rounded-md w-28  ${view === 1 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
           onClick={() => { setView(1) }}
         >In Progress</button>
-        <button className={`border-2 border-Dark_3 rounded-md w-28  ${view === 2 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
+        <button data-testid='buttonConcludedMobile' className={`border-2 border-Dark_3 rounded-md w-28  ${view === 2 ? 'bg-Dark_5' : 'bg-Dark_4'}`}
           onClick={() => { setView(2) }}
         >Concluded</button>
       </section>
