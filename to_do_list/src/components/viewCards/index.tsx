@@ -18,6 +18,7 @@ export default function ViewCards ({ title, cards }: PropsType): React.JSX.Eleme
       md:flex-row md:flex-wrap md:justify-around gap-5'>
         {cards.map(item => (
           <div
+            data-testid={item.name}
             key={item.id}
             className='bg-Dark_3 w-[95%] max-w-[350px] h-20 rounded-xl flex items-end py-2 px-4 gap-3'
           >

@@ -22,24 +22,6 @@ describe('Home', () => {
     fireEvent.click(buttonConcludedMobile)
 
     expect(getAllByTestId('Concluded').length).toBe(2)
-
-    // const inputNewToDo = getByTestId('input-new-to-do')
-    // const buttonNewToDo = getByTestId('button-new-to-do')
-    // const inputError = getByTestId('input-new-to-do')
-
-    // expect(inputNewToDo).toBeVisible()
-    // expect(buttonNewToDo).toBeVisible()
-
-    // fireEvent.change(inputNewToDo, { target: { value: 'te' } })
-
-    // expect(inputNewToDo).toHaveDisplayValue('te')
-    // expect(buttonNewToDo).toBeDisabled()
-    // expect(inputError).toBeVisible()
-
-    // fireEvent.change(inputNewToDo, { target: { value: 'teste1' } })
-
-    // expect(inputNewToDo).toHaveDisplayValue('teste1')
-    // expect(buttonNewToDo).toBeEnabled()
   })
   test('testing inputToDo components', () => {
     const { getByTestId } = render(<Home />)
@@ -61,5 +43,9 @@ describe('Home', () => {
 
     expect(inputNewToDo).toHaveDisplayValue('teste1')
     expect(buttonNewToDo).toBeEnabled()
+
+    fireEvent.keyDown(inputNewToDo, { key: 'Enter', code: 'Enter', charCode: 13 })
+
+    expect(inputNewToDo).toHaveDisplayValue('')
   })
 })
