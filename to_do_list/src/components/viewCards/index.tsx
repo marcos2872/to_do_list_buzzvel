@@ -22,7 +22,9 @@ export default function ViewCards ({ title, cards }: PropsType): React.JSX.Eleme
             key={item.id}
             className='bg-Dark_3 w-[95%] max-w-[350px] h-20 rounded-xl flex items-end py-2 px-4 gap-3'
           >
-            <section className='flex flex-col w-full h-full'
+            <section
+            data-testid='card-button'
+            className='flex flex-col w-full h-full'
               onClick={() => {
                 setViewTask(item.id)
               }}>
@@ -37,7 +39,7 @@ export default function ViewCards ({ title, cards }: PropsType): React.JSX.Eleme
 
               </p>
             </section>
-            <VscTrash className='text-red-600 text-2xl' onClick={() => { deleteTask(item.id) }} />
+            <VscTrash data-testid='card-delete' className='text-red-600 text-2xl' onClick={() => { deleteTask(item.id) }} />
           </div>
         ))}
       </div>
