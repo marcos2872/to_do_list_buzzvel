@@ -19,7 +19,7 @@ Examples of how to start the project
 
 With Docker, in the root of the project run the command below, the project will run on port 3000
 
-    docker-compose up --build
+    docker-compose up
 
 to run without docker enter the to_do_list folder and follow the instructions in the readme
 
