@@ -2,9 +2,6 @@ import React from 'react'
 import Home from '../app/page'
 import '@testing-library/jest-dom'
 import { fireEvent, render } from '@testing-library/react'
-// import ViewCards from '../components/viewCards'
-// import todolistMock from './todolistMock'
-// import Task from '../components/task'
 import { ContextProvider } from '../context/context'
 
 describe('Home', () => {
@@ -112,6 +109,10 @@ describe('Home', () => {
     const newTaskInput = getAllByTestId('task-new-input')[0]
 
     fireEvent.change(newTaskInput, { target: { value: 'teste1' } })
+    fireEvent.keyDown(newTaskInput, { key: 'Enter', code: 'Enter', charCode: 13 })
+
+    fireEvent.click(newTask)
+    fireEvent.change(newTaskInput, { target: { value: 'teste2' } })
     fireEvent.keyDown(newTaskInput, { key: 'Enter', code: 'Enter', charCode: 13 })
 
     const taskCheck = getAllByTestId('task-new-check')[0]
